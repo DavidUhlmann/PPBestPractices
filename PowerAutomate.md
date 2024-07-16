@@ -1,5 +1,19 @@
 # Cloud Flows Best Practices
 
+## Making sure to use Power Automate for the correct purpose
+Use Power Automate for simple automation inside the Power Platform.
+For Desktop Power Automate Desktop can be used. 
+
+Power Automate cloud flows should not be used for:
+- Systemintegration between different systems (for example keeping data in sync)
+- Automations that need to run 100% of the time. A cloud flow will never trigger 100% of the time
+- Avoid Power Automate in highly regulated industries that have specific requirements like health care, finance, legal etc.
+- If your automation needs to scale up and out avoid Power Automate and go to Azure (Logic App / Azure Function)
+
+## Making use of Templates
+If you start working with Power Automat Clouf Flows check if there are existing templates for your workload on the official page: https://make.powerautomate.com/templates/
+This avoids that you spend hours on rebuilding something that is ready to be used and provided by Microsoft
+
 ## Naming Convention
 
 ### Naming flows
@@ -150,4 +164,10 @@ For ease of tracking it is recommended that one of the inputs of the child flow 
 concat('https://make.powerautomate.com/environments/', workflow()?['tags']['environmentName'], '/flows/', workflow()?['name'], '/runs/', workflow()?['run']['name'])
 
 Further information about child flows can be found at [Create child Flows - Power Automate | Microsoft Learn](https://learn.microsoft.com/en-us/power-automate/create-child-flows)
+
+## Authentication in Flows 
+
+If you work within a cloud flow and need to authenticate, for example, to an API or Azure Service, try to use a Service Principal whenever possible. If a Service Principal is not supported by design, try to use a service account.
+Additionally, ensure that you use secure input and output values from sources like Key Vault to avoid those values appearing in your flow logs. 
+
 
